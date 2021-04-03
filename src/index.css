@@ -31,6 +31,7 @@ a, a:hover{
 }
 .text-error{
   margin-bottom:20px;
+  font-size:14px;
 }
 .hide-number::-webkit-outer-spin-button,
 .hide-number::-webkit-inner-spin-button {
@@ -41,6 +42,9 @@ a, a:hover{
 /* Firefox */
 .hide-number{
   -moz-appearance: textfield;
+}
+.pointer{
+  cursor:pointer;
 }
 /* @media (max-width:320px){
   .container {

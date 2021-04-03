@@ -1,0 +1,38 @@
+.grid__number{
+    border: 4px solid #EE8D94;
+    box-sizing: border-box;
+    border-radius: 5px;
+    // width:161px;
+    // height:67px;
+    width:150px;
+    height:62px;
+    background:transparent;
+    padding:0 10px;
+    position:relative;
+    input{
+        border: none;
+        box-sizing: border-box;
+        border-radius: 5px;
+        max-width:100%;
+        height:100%;
+        font-weight: 500;
+        font-size: 36px;
+        line-height: 44px;
+        color: #FFFFFF;
+        background:transparent;
+        outline:none;
+    }
+    .carets{
+        position:absolute;
+        right:10px;
+        top:50%;
+        transform: translateY(-50%);
+    }
+    .caret {
+        width:30px;
+        cursor:pointer;
+    }
+    .carets .caret__down{
+        margin-top:5px;
+    }
+}

@@ -6,11 +6,12 @@ import Character from '../../assets/img/character.svg'
 import './style.scss';
 
 export default class Index extends Component {
-
+    localStorageGrid = localStorage.getItem('grid')
+    parsedStorage =  parseInt(this.localStorageGrid)
     state={
-        gridNumber:"",
-        food:10,
-        grid:10,
+        gridNumber:this.parsedStorage * this.parsedStorage,
+        food:this.parsedStorage,
+        grid:this.parsedStorage,
         foodLocation:[],
         playerPosition:'',
         playerSelected:false,
@@ -25,21 +26,23 @@ export default class Index extends Component {
 
     componentDidMount(){
         // console.log(this.placeFood())
+        const localStorageGrid = localStorage.getItem('grid')
+        // console.log(localStorageGrid)
         this.setMoveBarrier()
         this.setState({
             foodLocation:this.placeFood(),
-            gridNumber:this.state.grid * this.state.grid
+            // gridNumber:localStorageGrid * localStorageGrid,
         })
     }
 
     placeFood = () =>{
         const randomPlace = []
         for(let i = 1; i <= this.state.food; i++){
-            const randomNumber = Math.floor(Math.random() * 101)
+            const randomNumber = Math.floor(Math.random() * this.state.gridNumber + 1)
             // const exist = randomPlace.includes(i);
             randomPlace.push(randomNumber)
         }
-        const playerPosition = Math.floor(Math.random() * 101)
+        const playerPosition = Math.floor(Math.random() * this.state.gridNumber + 1)
         this.setState({playerPosition})
         return randomPlace
         
@@ -58,9 +61,6 @@ export default class Index extends Component {
 
             var removed = foods.splice(foodLocation.indexOf(target),1);
             this.setState({foodLocation:foods,playerPosition:target, totalMoves: totalMoves + 1},this.selectPlayer("auto",target))
-            
-            
-            
 
         }else{
             this.setState({playerError:true})
@@ -85,13 +85,14 @@ export default class Index extends Component {
         }else if(rightMoveBarrier.includes(activePosition)){
             activeBarrier = 'right'
         }
-        console.log(topMoveBarrier, bottomMoveBarrier, leftMoveBarrier, rightMoveBarrier)
+        // console.log(topMoveBarrier, bottomMoveBarrier, leftMoveBarrier, rightMoveBarrier)
 
         
 
         const activeFields = []
         const top = activePosition - food
         const bottom = activePosition + food
+        // console.log(bottom)
         switch(activeBarrier){
             case "top":
                 activeFields.push(activePosition -1, activePosition + 1, bottom -1, bottom, bottom + 1);
@@ -164,6 +165,15 @@ export default class Index extends Component {
 
         
     }
+    setColumnNumber = () =>{
+        // "60px 60px 60px 60px 60px 60px 60px 60px 60px 60px"
+        let css = ""
+        for(let i =0; i< this.state.grid; i++){
+            css+=" 60px"
+        }  
+        // console.log(css) 
+        return css
+    }
 
     renderBox = () =>{
         const array = []
@@ -191,12 +201,12 @@ export default class Index extends Component {
     render() {
         // console.log(this.state.validGrids)
         const {playerPosition, food,playerSelected, validGrids, foodLocation, gridNumber, grid, totalMoves} = this.state
-        // console.log(playerPosition, validGrids,playerSelected, foodLocation)
+        // console.log(playerPosition,validGrids)
         return (
             <section className="gameplay d-flex align-items-center justify-content-center">
                 <div className="gameboard">
                     <div className="meta d-flex jsutify-content-evenly align-items-center">
-                        <div className="grid_number data pl-3">Grid: <span>10 x 10</span></div>
+                        <div className="grid_number data pl-3">Grid: <span>{grid} x {grid}</span></div>
                         <div className="d-flex align-items-center life">
                             <img src={Heart} alt="heart" />
                             <div className="meter">
@@ -207,7 +217,10 @@ export default class Index extends Component {
                         </div>
                         <div className="time data pr-3">Time spent: <span>00:48 secs</span></div>
                     </div>
-                    <div className="board__item ">
+                    <div className="board__item mx-auto" style={{
+                        gridTemplateColumns: this.setColumnNumber(),
+                        gridTemplateRows:this.setColumnNumber()}}
+                    >
                         {this.renderBox()}
                     </div>
 

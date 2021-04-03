@@ -53,44 +53,6 @@
             margin-right:30px;
             
         }
-        .grid__number{
-            border: 4px solid #EE8D94;
-            box-sizing: border-box;
-            border-radius: 5px;
-            // width:161px;
-            // height:67px;
-            width:150px;
-            height:62px;
-            background:transparent;
-            padding:0 10px;
-            position:relative;
-        }
-        .grid__number input{
-            border: none;
-            box-sizing: border-box;
-            border-radius: 5px;
-            width:50%;
-            height:100%;
-            font-weight: 500;
-            font-size: 36px;
-            line-height: 44px;
-            color: #FFFFFF;
-            background:transparent;
-            outline:none;
-        }
-        .grid__number .carets{
-            position:absolute;
-            right:10px;
-            top:50%;
-            transform: translateY(-50%);
-        }
-        .grid__number .caret {
-            width:30px;
-            cursor:pointer;
-        }
-        .grid__number .carets .caret__down{
-            margin-top:5px;
-        }
     }
     .button{
         width: 328px;
