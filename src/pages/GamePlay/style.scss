@@ -3,14 +3,16 @@
     background-size:cover;
     background-position:center;
     height:100vh;
+    padding: 20px;
 
     .gameboard{
         background: #FFFFFF;
         border-radius: 17.5186px;
         width:fit-content;
-        height:80%;
+        // height:80%;
         max-width: 706px;
         padding:26px 48px;
+        
     }
     
     .meta{
@@ -66,6 +68,7 @@
         grid-template-rows: 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px;
         grid-gap: 0 0;
         // justify-content: center;
+        margin-bottom: 21px;
         .board__box{
             // border: 2.46869px solid #853594;
             border: 1.234px solid #853594;
