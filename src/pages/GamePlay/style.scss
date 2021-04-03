@@ -7,7 +7,92 @@
     .gameboard{
         background: #FFFFFF;
         border-radius: 17.5186px;
-        width:50%;
+        width:fit-content;
         height:80%;
+        max-width: 706px;
+        padding:26px 48px;
+    }
+    
+    .meta{
+        justify-content: space-between;
+        margin-bottom: 25px;
+        .data{
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15.7668px;
+            line-height: 18px;
+            color: #23144B;
+            span{
+                font-weight: 700;
+            }
+        }
+        .life{
+            img{
+                z-index:100;
+                
+            }
+        }
+        .meter{
+            background: linear-gradient(180deg, #853594 47.39%, #692789 47.4%);
+            border: 2.15507px solid #532461;
+            box-sizing: border-box;
+            border-radius: 12.661px;
+            width: 162.79px;
+            height: 18.04px;
+            margin-left:-40px;
+            
+            .content{
+                background: linear-gradient(180deg, #F07CC3 44.27%, #C5418E 44.28%);
+                border: 1.87639px solid #FFFFFD;
+                box-sizing: border-box;
+                border-radius: 11.0238px;
+                height:100%;
+                width:70%;
+                
+            }
+        }
+
+        
+    }
+    .board__item{
+        border: 2.46869px solid #853594;
+        width:fit-content;
+        height:fit-content;
+        // display: table-cell;
+        // border-collapse:collapse;
+        display:grid;
+        grid-template-columns: 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px;
+        grid-template-rows: 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px;
+        grid-gap: 0 0;
+        // justify-content: center;
+        .board__box{
+            // border: 2.46869px solid #853594;
+            border: 1.234px solid #853594;
+            // display: table-cell;
+            // display:table-row;
+            // width:60px;
+            // height:60px;
+            cursor: pointer;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .board__box .character__play{
+            width:31px;
+            height:31px;
+        }
+        .board__box.player__error{
+            border: 2px solid #ffff00;
+        }
+        .board__box.player__selected, .board__box.player__active:hover{
+            border: 2px solid #4d09bb;
+        }
+        .board__box.player__possible{
+            border: 2px solid #3ff568;
+        }
+        .board__box.player__active{
+            // transition:all ease .3s;
+        }
     }
 }
