@@ -3,6 +3,8 @@ import './App.css';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Index from './pages/Index';
 import GamePlay from './pages/GamePlay'
+import GameOver from './pages/GameOver'
+import GameWin from './pages/GameWin'
 import { spring,AnimatedSwitch } from 'react-router-transition';
 import {  } from 'react-router-dom';
 
@@ -55,6 +57,8 @@ function Routes() {
         className="route-wrapper"
       >
          {/*  */}
+          <Route path="/gamewin" component={GameWin}/>
+          <Route path="/gameover" component={GameOver}/>
           <Route path="/gameplay" component={GamePlay}/>
           <Route path="/" component={Index}/>
       </AnimatedSwitch>

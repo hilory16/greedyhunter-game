@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Timer from '../../components/Timer'
 import GamePlay from '../../assets/img/gameplay.jpg';
 import Heart from '../../assets/img/heart.svg';
 import Food from '../../assets/img/food.svg';
@@ -37,16 +38,13 @@ export default class Index extends Component {
 
     placeFood = () =>{
         const randomPlace = []
-        for(let i = 1; i <= this.state.food; i++){
-            const randomNumber = Math.floor(Math.random() * this.state.gridNumber + 1)
-            // const exist = randomPlace.includes(i);
-            randomPlace.push(randomNumber)
+        while(randomPlace.length < this.state.food + 1){
+            var randomNumber =Math.floor(Math.random() * this.state.gridNumber + 1)
+            if(randomPlace.indexOf(randomNumber) === -1) randomPlace.push(randomNumber);
         }
-        const playerPosition = Math.floor(Math.random() * this.state.gridNumber + 1)
+        const playerPosition = randomPlace.pop()
         this.setState({playerPosition})
         return randomPlace
-        
-        // 
     }
 
     MovePlayer = (target) =>{
@@ -203,7 +201,8 @@ export default class Index extends Component {
         const {playerPosition, food,playerSelected, validGrids, foodLocation, gridNumber, grid, totalMoves} = this.state
         // console.log(playerPosition,validGrids)
         return (
-            <section className="gameplay d-flex align-items-center justify-content-center">
+            <section className="gameplay d-flex -items-center justify-content-center">
+                
                 <div className="gameboard">
                     <div className="meta d-flex jsutify-content-evenly align-items-center">
                         <div className="grid_number data pl-3">Grid: <span>{grid} x {grid}</span></div>
@@ -215,7 +214,7 @@ export default class Index extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="time data pr-3">Time spent: <span>00:48 secs</span></div>
+                        <Timer props={this.props}/>
                     </div>
                     <div className="board__item mx-auto" style={{
                         gridTemplateColumns: this.setColumnNumber(),
