@@ -11,7 +11,7 @@ export default function Index({error, grid, changeInput, adjustValue}) {
                 <input type="number" className="hide-number " value={grid} onChange={e => changeInput(e)}/>
                 <div className="carets">
                     <img src={CaretUp} alt="caret" className="d-block caret" onClick={() => adjustValue("increment")}/>
-                    <img src={CaretDown} alt="caret" className="d-block caret caret__down" onClick={() => adjustValue("decrement")}/>
+                    <img src={CaretUp} alt="caret" className="d-block caret caret__down" onClick={() => adjustValue("decrement")}/>
                 </div>
                 
                 

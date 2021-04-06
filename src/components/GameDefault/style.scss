@@ -4,9 +4,11 @@
     display:flex;
     align-items:center;
     .pattern{
-        background-image:url(../../assets/img/dotted-pattern.svg);
-        background-size:cover;
-        height:90%;
+        background-image:url(../../assets/img/dotted-pattern.svg) ;
+        background-repeat: no-repeat;
+        background-size: auto 100%;
+        background-position:center;
+        height:82%;
     }
 
     .character{
@@ -15,15 +17,15 @@
         img{
             // width: 176px;
             // height: 191.09px;
-            width:130px;
+            width:140px;
         }
     }
     .name{
         font-weight: 600;
         // font-size: 64px;
         // line-height: 77px;
-        font-size: 50px;
-        line-height: 70px;
+        font-size: 56px;
+        line-height: 50px;
         color: #FFC700;
         text-align:center;
         margin-bottom:23px;
@@ -32,30 +34,33 @@
         font-weight: normal;
         // font-size: 24px;
         // line-height: 29px;
-        font-size: 20px;
-        line-height: 25px;
+        font-size: 19px;
+        line-height: 23px;
         color: #CBCBFF;
         text-align:center;
-        margin-bottom:20px;
+        margin-bottom:16px;
     }
+    .instruction.min{
+        margin-bottom:70px;
+    }   
     .set__grid{
         // margin-bottom:70px;
         // margin-top:30px;
-        margin-bottom:60px;
-        margin-top:25px;
+        margin-bottom:45px;
+        margin-top:35px;
         h4{
             font-weight: 500;
             // font-size: 36px;
             // line-height: 44px;
-            font-size: 31px;
-            line-height: 39px;
+            font-size: 30px;
+            line-height: 38px;
             color: #EE8D94;
             margin-right:30px;
             
         }
     }
     .button{
-        width: 328px;
+        width: 300px;
         height: 70px;
         // width: 348px;
         // height: 84px;
@@ -65,10 +70,38 @@
             font-weight: 500;
             // font-size: 30px;
             // line-height: 36px;
-            font-size: 25px;
+            font-size: 24px;
             line-height: 31px;
             color: #FCFCFC;
             
         }
+    }
+}
+
+@media (max-width:767px){
+    .bg-pattern .name {
+        font-size: 42px;
+    }
+    .bg-pattern .instruction {
+        font-size: 16px;
+        line-height: 23px;
+        margin-bottom: 10px;
+    }
+    .bg-pattern .set__grid h4 {
+        font-size: 25px;
+    }
+}
+@media (max-width:330px){
+    .bg-pattern .character img {
+        width: 120px;
+    }
+    .bg-pattern .name {
+        font-size: 40px;
+    }
+    .bg-pattern .instruction {
+        font-size: 14px;
+    }
+    .bg-pattern .set__grid h4 {
+        font-size: 22px;
     }
 }

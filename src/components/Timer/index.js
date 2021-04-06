@@ -3,7 +3,7 @@ import React,{Component} from 'react';
 export default class Example extends React.Component {
     constructor() {
       super();
-      this.state = { time: {}, seconds: 15 };
+      this.state = { time: {}};
       this.timer = 0;
       this.startTimer = this.startTimer.bind(this);
       this.countDown = this.countDown.bind(this);
@@ -27,41 +27,41 @@ export default class Example extends React.Component {
     }
   
     componentDidMount() {
-      let timeLeftVar = this.secondsToTime(this.state.seconds);
+      let timeLeftVar = this.secondsToTime(this.props.seconds);
       this.setState({ time: timeLeftVar });
       this.startTimer()
     }
 
   
     startTimer() {
-      if (this.timer == 0 && this.state.seconds > 0) {
+        
+      if (this.timer == 0 && this.props.seconds > 0) {
         this.timer = setInterval(this.countDown, 1000);
+        
       }
     }
   
     countDown() {
       // Remove one second, set state so a re-render happens.
-      let seconds = this.state.seconds - 1;
+      this.props.setSeconds()
+      const seconds = this.props.seconds
       this.setState({
-        time: this.secondsToTime(seconds),
-        seconds: seconds,
+        time: this.secondsToTime(seconds)
       });
+    //   console.log(seconds)
+      
       
       // Check if we're at zero.
       if (seconds == 0) { 
         clearInterval(this.timer);
-        this.props.props.history.push('/gameover')
       }
-    }
-
-    gameover = () => {
-
     }
   
     render() {
-        const {m,s} = this.state.time
+      const {m,s} = this.state.time
+    //   console.log(this.state.time)
       return(
-        <div className={`${this.state.seconds < 10 ? 'text-danger' : null } time data pr-3`}>Time spent: <span>{m < 10 ? "0"+m : m}:{s < 10 ? "0"+s : s} secs</span></div>
+        <div className={`${this.props.seconds < 10 ? 'text-danger' : null } time data ${this.props.grid > 7 ? 'pr-3' : 'ml-4'}`}>Time spent: <span>{m < 10 ? "0"+m : m}:{s < 10 ? "0"+s : s} secs</span></div>
       );
     }
   }

@@ -13,6 +13,8 @@ export default class Index extends Component {
         }
     }
 
+    
+
     changeInput = (e) =>{
         // console.log(e.target.value)
         if( e.target.value > 12)  return this.setState({grid:12,error:{status:true, message:"Please enter a value between 5 - 12!"}})
@@ -57,10 +59,10 @@ export default class Index extends Component {
             <section className="bg-pattern">
                     <div className="container">
                         <div className="row bg-pattern">
-                            <div className="col-lg-3 h-100 d-flex align-items-center">
+                            <div className="col-lg-3  h-100 d-none d-lg-flex align-items-center">
                                 <div className="pattern w-100"></div>
                             </div>
-                            <div className="col-lg-6">
+                            <div className="col-lg-6 px-0 px-md-3">
                                 <div className="character">
                                     <img src={Character} alt="character" className="d-block mx-auto"/>
                                 </div>
@@ -69,7 +71,7 @@ export default class Index extends Component {
                                 <div className="set__grid ">
                                     <div className="d-flex justify-content-center mb-1">
                                         <div className=" d-flex align-items-center" onMouseLeave={this.setDefaultGrid}>
-                                            <h4 className="0">Game grid</h4>
+                                            <h4 className="mb-0">Game grid</h4>
                                             <GridNumber grid={grid} changeInput={this.changeInput} adjustValue={this.adjustValue} />
                                         </div>
                                     </div>
@@ -85,7 +87,7 @@ export default class Index extends Component {
                                 </div>
                                 
                             </div>
-                            <div className="col-lg-3 h-100 d-flex align-items-center">
+                            <div className="col-lg-3 h-100 d-none d-lg-flex align-items-center">
                                 <div className="pattern w-100" ></div>
                             </div>
                         </div>

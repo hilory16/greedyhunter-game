@@ -2,22 +2,22 @@
     background-image:url(../../assets/img/gameplay.jpg);
     background-size:cover;
     background-position:center;
-    height:100vh;
-    padding: 20px;
+    min-height:100vh;
+    padding: 40px;
 
     .gameboard{
         background: #FFFFFF;
         border-radius: 17.5186px;
         width:fit-content;
         // height:80%;
-        max-width: 706px;
-        padding:26px 48px;
+        // max-width: 706px;
+        height:fit-content;
+        padding:26px 45px;
         
     }
     
     .meta{
         justify-content: space-between;
-        margin-bottom: 25px;
         .data{
             font-family: Roboto;
             font-style: normal;
@@ -40,9 +40,9 @@
             border: 2.15507px solid #532461;
             box-sizing: border-box;
             border-radius: 12.661px;
-            width: 162.79px;
+            width: calc(162.79px - 35px);
             height: 18.04px;
-            margin-left:-40px;
+            margin-left:-15px;
             
             .content{
                 background: linear-gradient(180deg, #F07CC3 44.27%, #C5418E 44.28%);
@@ -50,13 +50,19 @@
                 box-sizing: border-box;
                 border-radius: 11.0238px;
                 height:100%;
-                width:70%;
+                max-width:100%;
                 
             }
         }
 
         
     }
+    .meta.top{
+        margin-bottom: 25px;
+    }
+    // .meta.bottom{
+    //     margin-bottom: 25px;
+    // }
     .board__item{
         border: 2.46869px solid #853594;
         width:fit-content;
@@ -64,8 +70,7 @@
         // display: table-cell;
         // border-collapse:collapse;
         display:grid;
-        // grid-template-columns: 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px;
-        // grid-template-rows: 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px;
+        
         grid-gap: 0 0;
         justify-content: center;
         margin-bottom: 21px;
@@ -98,4 +103,13 @@
             // transition:all ease .3s;
         }
     }
+}
+
+@media (max-width:767px){
+    .gameplay{
+        .board__item{
+            // grid-template-columns: 30px 60px;
+            // grid-template-rows: 30px ;
+        }
+    }   
 }

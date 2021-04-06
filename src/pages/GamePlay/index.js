@@ -22,18 +22,56 @@ export default class Index extends Component {
         topMoveBarrier:[],
         bottomMoveBarrier:[],
         leftMoveBarrier:[],
-        rigthMoveBarrier:[]
+        rigthMoveBarrier:[],
+        seconds: this.parsedStorage * this.parsedStorage
     }
 
     componentDidMount(){
-        // console.log(this.placeFood())
         const localStorageGrid = localStorage.getItem('grid')
         // console.log(localStorageGrid)
+        if(!localStorageGrid) this.props.history.push('/')
         this.setMoveBarrier()
         this.setState({
-            foodLocation:this.placeFood(),
-            // gridNumber:localStorageGrid * localStorageGrid,
+            foodLocation:this.placeFood()
         })
+        localStorage.removeItem('grid')
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        const{foodLocation, playerPosition, totalMoves, maxMoves, grid,seconds, food} =this.state
+        const gameDetails = {
+            foodWon:grid - foodLocation.length,
+            totalFood:grid,
+            timeSpent:(grid * grid ) - seconds
+        }
+        const gameDetailsString = JSON.stringify(gameDetails)
+
+        if(prevState.playerPosition !== playerPosition ){
+            const maxMoves = Math.ceil(grid * grid / 2)
+            
+
+            if(foodLocation.length < 1 && food){
+                localStorage.setItem('game_details', gameDetailsString)
+                return this.props.history.push('/gamewin')
+            } 
+            if(totalMoves >= maxMoves){
+                if(foodLocation.length > 0){
+                    localStorage.setItem('game_details', gameDetailsString)
+                    return this.props.history.push('/gameover')
+                } else{
+                    localStorage.setItem('game_details', gameDetailsString)
+                    return this.props.history.push('/gamewin')
+                }
+            } 
+            // console.log(prevState)
+        }
+
+        if(prevState.seconds !== seconds){
+            if(seconds == 0){
+                localStorage.setItem('game_details', gameDetailsString)
+                return this.props.history.push('/gameover')
+            } 
+        }   
     }
 
     placeFood = () =>{
@@ -48,7 +86,8 @@ export default class Index extends Component {
     }
 
     MovePlayer = (target) =>{
-        const {playerSelected, foodLocation, totalMoves} =  this.state
+        const {playerSelected, foodLocation, totalMoves, grid} =  this.state 
+
         if(playerSelected){
             this.setState({playerError:false})
 
@@ -173,6 +212,12 @@ export default class Index extends Component {
         return css
     }
 
+    setSeconds = () =>{
+        let seconds = this.state.seconds - 1;
+        this.setState({
+            seconds: seconds,
+        });
+    }
     renderBox = () =>{
         const array = []
         for(let i = 1; i <= this.state.gridNumber; i++){
@@ -198,32 +243,36 @@ export default class Index extends Component {
     }
     render() {
         // console.log(this.state.validGrids)
-        const {playerPosition, food,playerSelected, validGrids, foodLocation, gridNumber, grid, totalMoves} = this.state
+        const {playerPosition, food,playerSelected, validGrids, foodLocation, gridNumber, grid, totalMoves,seconds} = this.state
         // console.log(playerPosition,validGrids)
+        // console.log(seconds/grid * grid)
+        // console.log(seconds, grid*grid)
+        // console.log(seconds / (grid * grid) * 100)
+        
         return (
-            <section className="gameplay d-flex -items-center justify-content-center">
+            <section className={`gameplay d-flex  justify-content-center ${grid < 9 ? 'align-items-center' :''}`}>
                 
                 <div className="gameboard">
-                    <div className="meta d-flex jsutify-content-evenly align-items-center">
-                        <div className="grid_number data pl-3">Grid: <span>{grid} x {grid}</span></div>
+                    <div className="meta d-flex jsutify-content-evenly align-items-center top">
+                        <div className={`grid_number data  ${grid > 7 ? 'pl-3 ': 'mr-4'}`}>Grid: <span>{grid} x {grid}</span></div>
                         <div className="d-flex align-items-center life">
                             <img src={Heart} alt="heart" />
                             <div className="meter">
-                                <div className="content">
+                                <div className="content" style={{width:`${seconds / (grid * grid) * 100}%`}}>
 
                                 </div>
                             </div>
                         </div>
-                        <Timer props={this.props}/>
+                        <Timer props={this.props} seconds={seconds} grid={grid} setSeconds={(seconds) => this.setSeconds(seconds)}/>
                     </div>
-                    <div className="board__item mx-auto" style={{
+                    <div className="board__item mx-auto mobile-grid" style={{
                         gridTemplateColumns: this.setColumnNumber(),
                         gridTemplateRows:this.setColumnNumber()}}
                     >
                         {this.renderBox()}
                     </div>
 
-                    <div className="meta d-flex jsutify-content-evenly align-items-center">
+                    <div className="meta bottom d-flex jsutify-content-evenly align-items-center">
                         <div className="max__moves data pl-3">Maximum moves: <span>{Math.ceil(grid * grid / 2)} </span></div>
                         <div className="total__moves data pr-3">Total moves: <span>{totalMoves}</span></div>
                     </div>
