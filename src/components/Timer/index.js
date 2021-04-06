@@ -61,7 +61,7 @@ export default class Example extends React.Component {
       const {m,s} = this.state.time
     //   console.log(this.state.time)
       return(
-        <div className={`${this.props.seconds < 10 ? 'text-danger' : null } time data ${this.props.grid > 7 ? 'pr-3' : 'ml-4'}`}>Time spent: <span>{m < 10 ? "0"+m : m}:{s < 10 ? "0"+s : s} secs</span></div>
+        <div className={`${this.props.seconds < 10 ? 'text-danger' : '' } time data ${this.props.grid > 7 ? 'pr-md-3' : 'ml-4'}`}>Time spent: <span>{m < 10 ? "0"+m : m}:{s < 10 ? "0"+s : s} secs</span></div>
       );
     }
   }

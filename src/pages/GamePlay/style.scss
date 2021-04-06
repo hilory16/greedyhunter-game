@@ -64,21 +64,18 @@
     //     margin-bottom: 25px;
     // }
     .board__item{
-        border: 2.46869px solid #853594;
+        border: 2.5px solid #853594;
         width:fit-content;
         height:fit-content;
-        // display: table-cell;
-        // border-collapse:collapse;
         display:grid;
+        // display: flex;
+        // flex-flow: row wrap;
         
         grid-gap: 0 0;
         justify-content: center;
         margin-bottom: 21px;
         .board__box{
-            // border: 2.46869px solid #853594;
-            border: 1.234px solid #853594;
-            // display: table-cell;
-            // display:table-row;
+            border: 1.2px solid #853594;
             // width:60px;
             // height:60px;
             cursor: pointer;
@@ -107,9 +104,35 @@
 
 @media (max-width:767px){
     .gameplay{
+        align-items: center;
         .board__item{
-            // grid-template-columns: 30px 60px;
-            // grid-template-rows: 30px ;
+            img{
+                width:75% !important;
+            }
+        }
+        .gameboard {
+            background: #FFFFFF;
+            border-radius: 17.5186px;
+            width: -moz-fit-content;
+            width: fit-content;
+            height: -moz-fit-content;
+            height: fit-content;
+            padding: 20px 10px;
+        }
+        .meta .life img {
+            width: 40px;
+        }
+        .meta .meter {
+            border: 2.15507px solid #532461;
+            box-sizing: border-box;
+            border-radius: 12.661px;
+            width: calc(162.79px - 35px);
+            height: 15px;
+            margin-left: -15px;
+        }
+        .meta .data {
+            font-size: 13px;
+            line-height: 16px;
         }
     }   
 }

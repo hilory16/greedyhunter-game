@@ -103,7 +103,6 @@ export default class Index extends Component {
             this.setState({playerError:true})
         }
     }
-    // playerSelected ? activeFields : []playerSelected ? activeFields : []
 
     selectPlayer = (type,target) =>{
         const {playerPosition, food,playerSelected, topMoveBarrier, bottomMoveBarrier, leftMoveBarrier, rightMoveBarrier} = this.state
@@ -122,9 +121,6 @@ export default class Index extends Component {
         }else if(rightMoveBarrier.includes(activePosition)){
             activeBarrier = 'right'
         }
-        // console.log(topMoveBarrier, bottomMoveBarrier, leftMoveBarrier, rightMoveBarrier)
-
-        
 
         const activeFields = []
         const top = activePosition - food
@@ -132,36 +128,34 @@ export default class Index extends Component {
         // console.log(bottom)
         switch(activeBarrier){
             case "top":
-                activeFields.push(activePosition -1, activePosition + 1, bottom -1, bottom, bottom + 1);
+                activeFields.push(activePosition -1, activePosition + 1,bottom);
                 break;
             case "top-left":
-                activeFields.push(activePosition + 1,bottom, bottom + 1);
+                activeFields.push(activePosition + 1,bottom);
                 break;
             case "top-right":
-                activeFields.push(activePosition -1, bottom -1, bottom);
+                activeFields.push(activePosition -1, bottom);
                 break;
             case "bottom":
-                activeFields.push(top - 1,top, top + 1, activePosition -1, activePosition + 1)
+                activeFields.push(top, activePosition -1, activePosition + 1)
                 break;
             case "bottom-left":
-                activeFields.push(top, top + 1, activePosition + 1);
+                activeFields.push(top, activePosition + 1);
                 break;
             case "bottom-right":
-                activeFields.push(top - 1,top, activePosition -1);
+                activeFields.push(top, activePosition -1);
                 break;
             case "left":
-                activeFields.push(top, top + 1, activePosition + 1,bottom, bottom + 1)
+                activeFields.push(top, activePosition + 1,bottom)
                 break;
             case "right":
-                activeFields.push(top - 1,top,activePosition -1,bottom -1, bottom)
+                activeFields.push(top,activePosition -1, bottom)
                 break;
             default:
-                activeFields.push(top - 1,top, top + 1, activePosition -1, activePosition + 1, bottom -1, bottom, bottom + 1)
+                activeFields.push(top, activePosition -1, activePosition + 1, bottom)
         }
         
         this.setState({validGrids:type === "auto" ?  activeFields : !playerSelected ? activeFields : []})
-        // console.log(playerSelected)
-        
     }
 
     setMoveBarrier = () =>{
@@ -203,12 +197,37 @@ export default class Index extends Component {
         
     }
     setColumnNumber = () =>{
-        // "60px 60px 60px 60px 60px 60px 60px 60px 60px 60px"
+        const {grid} = this.state
         let css = ""
+        const deviceWidth = window.screen.width
+        let boxWidth =""
+        
+        // FOR MOBILE 5 - 7 grid
+        if( deviceWidth < 768 && grid < 8){
+            boxWidth = ' 45px'
+        }else if( deviceWidth < 768  && grid < 10 && grid > 7){
+            // FOR MOBILE 8 - 9
+            boxWidth = ' 35px'
+        }else if(deviceWidth < 768  && grid < 13 && grid > 9 ){
+            //FOR MOBILE 10 - 11
+            boxWidth = ' 28px'
+        }else if(deviceWidth < 768  && grid > 11){
+            //FOR MOBILE 12
+            boxWidth = ' 25px'
+        }
+        else if(deviceWidth > 767  && deviceWidth < 1024 ){
+            //FOR TABLET, ALL GRID
+            boxWidth = ' 55px'
+        }
+        else{
+            //FOR DESKTOP, ALL GRID
+            boxWidth = ' 60px'
+        }
+       
+        console.log(boxWidth)
         for(let i =0; i< this.state.grid; i++){
-            css+=" 60px"
+            css+=boxWidth
         }  
-        // console.log(css) 
         return css
     }
 
@@ -223,6 +242,7 @@ export default class Index extends Component {
         for(let i = 1; i <= this.state.gridNumber; i++){
             array.push(i)
         }
+
         return array.map((item, i) =>{
             
             if(this.state.playerPosition == (i + 1)) return<div className={`board__box d-flex align-items-center justify-content-center ${this.state.playerError ? 'player__error' : ''} ${this.state.playerSelected ? 'player__selected' : ''}`} onClick={() =>  this.selectPlayer()}>
@@ -231,31 +251,23 @@ export default class Index extends Component {
             return(
                 <div className={`board__box d-flex align-items-center justify-content-center ${this.state.playerSelected ? 'player__active' : ''} ${this.state.validGrids.includes(i + 1) ? 'player__possible' : ''}`} onClick={() =>this.MovePlayer(i + 1)}>
                     <img src={Food} alt="" className={`${this.state.foodLocation.includes(i + 1) ? '' : 'd-none'}`}/>
-                    {
-                        // <img src={Food} alt="" className={`${this.state.foodLocation.includes(i) ? '' : 'd-none'}`}/>
-                        // <img src={Food} alt="" className={`${this.state.foodLocation.includes(i) ? '' : 'd-none'}`}/>
-                    }
-                    
                 </div>
             )
         })
         
     }
     render() {
-        // console.log(this.state.validGrids)
         const {playerPosition, food,playerSelected, validGrids, foodLocation, gridNumber, grid, totalMoves,seconds} = this.state
-        // console.log(playerPosition,validGrids)
-        // console.log(seconds/grid * grid)
-        // console.log(seconds, grid*grid)
         // console.log(seconds / (grid * grid) * 100)
         
         return (
             <section className={`gameplay d-flex  justify-content-center ${grid < 9 ? 'align-items-center' :''}`}>
                 
                 <div className="gameboard">
+                    
                     <div className="meta d-flex jsutify-content-evenly align-items-center top">
-                        <div className={`grid_number data  ${grid > 7 ? 'pl-3 ': 'mr-4'}`}>Grid: <span>{grid} x {grid}</span></div>
-                        <div className="d-flex align-items-center life">
+                        <div className={`grid_number data  ${grid > 7 ? 'pl-md-3 ': 'mr-4'}`}>Grid: <span>{grid} x {grid}</span></div>
+                        <div className="d-md-flex align-items-center life d-none">
                             <img src={Heart} alt="heart" />
                             <div className="meter">
                                 <div className="content" style={{width:`${seconds / (grid * grid) * 100}%`}}>
@@ -265,9 +277,23 @@ export default class Index extends Component {
                         </div>
                         <Timer props={this.props} seconds={seconds} grid={grid} setSeconds={(seconds) => this.setSeconds(seconds)}/>
                     </div>
+
+                    <div className="meta d-flex justify-content-center align-items-center mb-3 mb-md-0">
+                        <div className="d-flex align-items-center life d-md-none ">
+                            <img src={Heart} alt="heart" />
+                            <div className="meter">
+                                <div className="content" style={{width:`${seconds / (grid * grid) * 100}%`}}>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div className="board__item mx-auto mobile-grid" style={{
                         gridTemplateColumns: this.setColumnNumber(),
-                        gridTemplateRows:this.setColumnNumber()}}
+                        gridTemplateRows:this.setColumnNumber(),
+                        // width:`${(60 * grid) + 5}px`
+                    }}
                     >
                         {this.renderBox()}
                     </div>
