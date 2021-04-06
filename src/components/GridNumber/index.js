@@ -1,9 +1,10 @@
 import React,{useState} from 'react';
 import CaretUp from '../../assets/img/caret-up.svg';
 import CaretDown from '../../assets/img/caret-down.svg';
+import PropTypes from 'prop-types'
 import './style.scss'
 
-export default function Index({error, grid, changeInput, adjustValue}) {
+export default function GridNumber({ grid, changeInput, adjustValue}) {
 
     return (
         <div>
@@ -19,4 +20,10 @@ export default function Index({error, grid, changeInput, adjustValue}) {
         </div>
 
     )
+}
+
+GridNumber.propTypes ={
+    grid:PropTypes.number.isRequired,
+    changeInput:PropTypes.func.isRequired,
+    adjustValue:PropTypes.func.isRequired
 }

@@ -15,7 +15,6 @@
         padding:26px 45px;
         
     }
-    
     .meta{
         justify-content: space-between;
         .data{
@@ -29,77 +28,9 @@
                 font-weight: 700;
             }
         }
-        .life{
-            img{
-                z-index:100;
-                
-            }
-        }
-        .meter{
-            background: linear-gradient(180deg, #853594 47.39%, #692789 47.4%);
-            border: 2.15507px solid #532461;
-            box-sizing: border-box;
-            border-radius: 12.661px;
-            width: calc(162.79px - 35px);
-            height: 18.04px;
-            margin-left:-15px;
-            
-            .content{
-                background: linear-gradient(180deg, #F07CC3 44.27%, #C5418E 44.28%);
-                border: 1.87639px solid #FFFFFD;
-                box-sizing: border-box;
-                border-radius: 11.0238px;
-                height:100%;
-                max-width:100%;
-                
-            }
-        }
+    }
 
-        
-    }
-    .meta.top{
-        margin-bottom: 25px;
-    }
-    // .meta.bottom{
-    //     margin-bottom: 25px;
-    // }
-    .board__item{
-        border: 2.5px solid #853594;
-        width:fit-content;
-        height:fit-content;
-        display:grid;
-        // display: flex;
-        // flex-flow: row wrap;
-        
-        grid-gap: 0 0;
-        justify-content: center;
-        margin-bottom: 21px;
-        .board__box{
-            border: 1.2px solid #853594;
-            // width:60px;
-            // height:60px;
-            cursor: pointer;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-        }
-        .board__box .character__play{
-            width:31px;
-            height:31px;
-        }
-        .board__box.player__error{
-            border: 2px solid #ffff00;
-        }
-        .board__box.player__selected, .board__box.player__active:hover{
-            border: 2px solid #4d09bb;
-        }
-        .board__box.player__possible{
-            border: 2px solid #3ff568;
-        }
-        .board__box.player__active{
-            // transition:all ease .3s;
-        }
-    }
+    
 }
 
 @media (max-width:767px){
@@ -118,21 +49,6 @@
             height: -moz-fit-content;
             height: fit-content;
             padding: 20px 10px;
-        }
-        .meta .life img {
-            width: 40px;
-        }
-        .meta .meter {
-            border: 2.15507px solid #532461;
-            box-sizing: border-box;
-            border-radius: 12.661px;
-            width: calc(162.79px - 35px);
-            height: 15px;
-            margin-left: -15px;
-        }
-        .meta .data {
-            font-size: 13px;
-            line-height: 16px;
         }
     }   
 }

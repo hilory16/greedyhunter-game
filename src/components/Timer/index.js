@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
-
-export default class Example extends React.Component {
+import PropTypes from 'prop-types'
+export default class Timer extends React.Component {
     constructor() {
       super();
       this.state = { time: {}};
@@ -65,3 +65,10 @@ export default class Example extends React.Component {
       );
     }
   }
+
+  
+Timer.propTypes ={
+  grid:PropTypes.number.isRequired,
+  seconds:PropTypes.number.isRequired,
+  setSeconds:PropTypes.func.isRequired
+}

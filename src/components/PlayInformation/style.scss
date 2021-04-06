@@ -1,0 +1,65 @@
+.play__information{
+    .meta{
+        // justify-content: space-between;
+        // .data{
+        //     font-family: Roboto;
+        //     font-style: normal;
+        //     font-weight: normal;
+        //     font-size: 15.7668px;
+        //     line-height: 18px;
+        //     color: #23144B;
+        //     span{
+        //         font-weight: 700;
+        //     }
+        // }
+        .life{
+            img{
+                z-index:100;
+                
+            }
+        }
+        .meter{
+            background: linear-gradient(180deg, #853594 47.39%, #692789 47.4%);
+            border: 2.15507px solid #532461;
+            box-sizing: border-box;
+            border-radius: 12.661px;
+            width: calc(162.79px - 35px);
+            height: 18.04px;
+            margin-left:-15px;
+            
+            .content{
+                background: linear-gradient(180deg, #F07CC3 44.27%, #C5418E 44.28%);
+                border: 1.87639px solid #FFFFFD;
+                box-sizing: border-box;
+                border-radius: 11.0238px;
+                height:100%;
+                max-width:100%;
+                
+            }
+        }
+
+        
+    }
+    .meta.top{
+        margin-bottom: 25px;
+    }
+}
+@media (max-width:767px){
+    .play__information{
+        .meta .life img {
+            width: 40px;
+        }
+        .meta .meter {
+            border: 2.15507px solid #532461;
+            box-sizing: border-box;
+            border-radius: 12.661px;
+            width: calc(162.79px - 35px);
+            height: 15px;
+            margin-left: -15px;
+        }
+        .meta .data {
+            font-size: 13px;
+            line-height: 16px;
+        }
+    }   
+}

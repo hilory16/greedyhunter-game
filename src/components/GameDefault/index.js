@@ -2,9 +2,10 @@ import React,{Component} from 'react';
 import Pattern from '../../assets/img/dotted-pattern.svg';
 import Character from '../../assets/img/character.svg';
 import GridNumber from '../../components/GridNumber'
+import PropTypes from 'prop-types'
 import './style.scss';
 
-export default class Index extends Component {
+export default class GameDefault extends Component {
     state= {
         grid:10,
         error: {
@@ -95,4 +96,10 @@ export default class Index extends Component {
                 </section>
         )
     }
+}
+
+GameDefault.propTypes ={
+    pageName:PropTypes.string.isRequired,
+    additionalInfo:PropTypes.object.isRequired,
+    props:PropTypes.object.isRequired,
 }

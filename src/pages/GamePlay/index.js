@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Timer from '../../components/Timer'
+import GameMoves from '../../components/GameMoves';
+import PlayInformation from '../../components/PlayInformation';
+import GameBoard from '../../components/GameBoard';
 import GamePlay from '../../assets/img/gameplay.jpg';
-import Heart from '../../assets/img/heart.svg';
-import Food from '../../assets/img/food.svg';
-import Character from '../../assets/img/character.svg'
+
 import './style.scss';
 
 export default class Index extends Component {
@@ -28,7 +28,6 @@ export default class Index extends Component {
 
     componentDidMount(){
         const localStorageGrid = localStorage.getItem('grid')
-        // console.log(localStorageGrid)
         if(!localStorageGrid) this.props.history.push('/')
         this.setMoveBarrier()
         this.setState({
@@ -48,8 +47,6 @@ export default class Index extends Component {
 
         if(prevState.playerPosition !== playerPosition ){
             const maxMoves = Math.ceil(grid * grid / 2)
-            
-
             if(foodLocation.length < 1 && food){
                 localStorage.setItem('game_details', gameDetailsString)
                 return this.props.history.push('/gamewin')
@@ -63,7 +60,6 @@ export default class Index extends Component {
                     return this.props.history.push('/gamewin')
                 }
             } 
-            // console.log(prevState)
         }
 
         if(prevState.seconds !== seconds){
@@ -85,7 +81,7 @@ export default class Index extends Component {
         return randomPlace
     }
 
-    MovePlayer = (target) =>{
+    movePlayer = (target) =>{
         const {playerSelected, foodLocation, totalMoves, grid} =  this.state 
 
         if(playerSelected){
@@ -188,14 +184,9 @@ export default class Index extends Component {
             array.push(grid * i)
         }
         this.setState({rightMoveBarrier:array})
-
-        
-
-        // console.log(array)
-
-
         
     }
+
     setColumnNumber = () =>{
         const {grid} = this.state
         let css = ""
@@ -224,7 +215,7 @@ export default class Index extends Component {
             boxWidth = ' 60px'
         }
        
-        console.log(boxWidth)
+        // console.log(boxWidth)
         for(let i =0; i< this.state.grid; i++){
             css+=boxWidth
         }  
@@ -237,71 +228,28 @@ export default class Index extends Component {
             seconds: seconds,
         });
     }
-    renderBox = () =>{
-        const array = []
-        for(let i = 1; i <= this.state.gridNumber; i++){
-            array.push(i)
-        }
-
-        return array.map((item, i) =>{
-            
-            if(this.state.playerPosition == (i + 1)) return<div className={`board__box d-flex align-items-center justify-content-center ${this.state.playerError ? 'player__error' : ''} ${this.state.playerSelected ? 'player__selected' : ''}`} onClick={() =>  this.selectPlayer()}>
-                <img src={Character} alt="" className={`character__play`}/>
-            </div>
-            return(
-                <div className={`board__box d-flex align-items-center justify-content-center ${this.state.playerSelected ? 'player__active' : ''} ${this.state.validGrids.includes(i + 1) ? 'player__possible' : ''}`} onClick={() =>this.MovePlayer(i + 1)}>
-                    <img src={Food} alt="" className={`${this.state.foodLocation.includes(i + 1) ? '' : 'd-none'}`}/>
-                </div>
-            )
-        })
-        
-    }
+   
     render() {
-        const {playerPosition, food,playerSelected, validGrids, foodLocation, gridNumber, grid, totalMoves,seconds} = this.state
+        const {playerPosition, food,playerSelected, validGrids, foodLocation, gridNumber, grid, totalMoves,seconds, playerError} = this.state
         // console.log(seconds / (grid * grid) * 100)
         
         return (
             <section className={`gameplay d-flex  justify-content-center ${grid < 9 ? 'align-items-center' :''}`}>
                 
                 <div className="gameboard">
-                    
-                    <div className="meta d-flex jsutify-content-evenly align-items-center top">
-                        <div className={`grid_number data  ${grid > 7 ? 'pl-md-3 ': 'mr-4'}`}>Grid: <span>{grid} x {grid}</span></div>
-                        <div className="d-md-flex align-items-center life d-none">
-                            <img src={Heart} alt="heart" />
-                            <div className="meter">
-                                <div className="content" style={{width:`${seconds / (grid * grid) * 100}%`}}>
-
-                                </div>
-                            </div>
-                        </div>
-                        <Timer props={this.props} seconds={seconds} grid={grid} setSeconds={(seconds) => this.setSeconds(seconds)}/>
-                    </div>
-
-                    <div className="meta d-flex justify-content-center align-items-center mb-3 mb-md-0">
-                        <div className="d-flex align-items-center life d-md-none ">
-                            <img src={Heart} alt="heart" />
-                            <div className="meter">
-                                <div className="content" style={{width:`${seconds / (grid * grid) * 100}%`}}>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div className="board__item mx-auto mobile-grid" style={{
-                        gridTemplateColumns: this.setColumnNumber(),
-                        gridTemplateRows:this.setColumnNumber(),
-                        // width:`${(60 * grid) + 5}px`
-                    }}
-                    >
-                        {this.renderBox()}
-                    </div>
-
-                    <div className="meta bottom d-flex jsutify-content-evenly align-items-center">
-                        <div className="max__moves data pl-3">Maximum moves: <span>{Math.ceil(grid * grid / 2)} </span></div>
-                        <div className="total__moves data pr-3">Total moves: <span>{totalMoves}</span></div>
-                    </div>
+                    <PlayInformation grid={grid} seconds={seconds} setSeconds={(seconds) => this.setSeconds(seconds)}  props={this.props}/>
+                    <GameBoard 
+                        column= {this.setColumnNumber} 
+                        gridNumber={gridNumber} 
+                        playerPosition={playerPosition} 
+                        playerSelected={playerSelected} 
+                        playerError={playerError} 
+                        foodLocation={foodLocation} 
+                        validGrids={validGrids}
+                        selectPlayer ={() =>this.selectPlayer()}
+                        movePlayer ={(target) => this.movePlayer(target)}
+                    />
+                    <GameMoves grid={grid} totalMoves={totalMoves}/>
                 </div>
             </section>
         )
